@@ -7,22 +7,21 @@ module.exports = {
       // TODO (Partie 1) : remplacez ces valeurs par les couleurs et les polices de votre univers.
       colors: {
         brand: {
-          DEFAULT: "#4B5563",
-          dark: "#374151",
-          light: "#E5E7EB",
+          DEFAULT:  "#E3350D",
+          light: "#FCE8E3",
         },
-        ink: "#14171D",
-        muted: "#545B68",
-        ground: "#EDEFF3",
-        line: "#D5D9E1",
+         ground: "#F7F7F7",
+        ink: "#242424",
+        line: "#D9D9D9",
+        muted: "#737373"
       },
       fontFamily: {
         display: ["Arial", "sans-serif"],
         body: ["Arial", "sans-serif"],
-        mono: ["Courier New", "monospace"],
+       
       },
       borderRadius: {
-        card: "20px",
+        card: "1rem",
       },
     },
   },

@@ -17,7 +17,7 @@
         </div>
         <div>
           <p class="font-display text-2xl font-extrabold leading-none">Mon Dex</p>
-          <p class="text-sm text-gray-300">Pokemon · <span id="creature-count">12</span> créatures</p>
+          <p class="text-sm text-gray-300">Pokemon· <span id="creature-count">12</span> créatures</p>
         </div>
       </div>
       <nav aria-label="Navigation principale" class="flex flex-wrap gap-2">
@@ -39,7 +39,7 @@
           <input id="search" type="search" placeholder="ex. Mossling" class="field font-normal">
         </label>
       </div>
-      <div id="filters" role="group" aria-label="Filtrer par type" class="flex h-11 flex-nowrap gap-2 ">
+      <div id="filters" role="group" aria-label="Filtrer par type" class="flex  flex-wrap gap-2 ">
           <button type="button" class="chip bg-ink text-white border-ink shrink-0">Tous</button>
           <button type="button" class="chip shrink-0">Feu</button>
           <button type="button" class="chip shrink-0">Eau</button>
@@ -53,7 +53,7 @@
     <div class="flex flex-col items-stretch gap-8 lg:flex-row lg:items-start">
 
       <!-- ===================== GRILLE DES CRÉATURES ===================== -->
-      <section id="grid" aria-label="Créatures" class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <section id="grid" aria-label="Créatures" class="grid lg:min-w-0  grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <!-- Carte écrite à la main : à remplacer par des cartes générées en JS (Partie 2) -->
         <article class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4">
           <div class="relative flex h-36 items-center justify-center rounded-xl bg-brand-light">
@@ -140,8 +140,7 @@
 
       </section>
 
-      <aside class="flex w-[420px] shrink-0 flex-col gap-6">
-
+      <aside class="flex flex-col  gap-6 lg:w-[420px] lg:shrink-0">
         <!-- ===================== PANNEAU DE DÉTAIL ===================== -->
         <section id="detail" aria-label="Détail de la créature" class="flex flex-col gap-4 rounded-card border-2 border-ink bg-white p-6">
           <div class="flex items-center justify-between">
@@ -165,22 +164,69 @@
         </section>
 
         <!-- ===================== MON ÉQUIPE (INCOMPLÈTE) ===================== -->
-        <section id="team" aria-label="Mon équipe" class="rounded-card bg-white p-6">
-          <h2 class="font-display text-2xl font-extrabold">Mon équipe</h2>
-          <!-- TODO (Partie 1) : terminez cette section en suivant la maquette :
-               compteur x/6, 6 emplacements (vides ou remplis), message de règles. -->
-        </section>
+       <section id="team" aria-label="Mon équipe"
+         class="min-w-0 rounded-card bg-white p-6">
+
+    <div class="flex flex-wrap items-center justify-between gap-3">
+        <h2 class="font-display text-2xl font-extrabold">
+            Mon équipe
+        </h2>
+
+        <span class="rounded-full bg-brand-light px-3 py-1 text-sm font-bold">
+            <span id="team-count-section">0</span>/6
+        </span>
+    </div>
+
+    <p class="mt-2 text-sm text-muted">
+        Composez votre équipe de Pokémon préférés.
+    </p>
+
+    <div id="team-slots"
+         class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+
+        <div class="flex min-h-20 items-center justify-center rounded-xl border-2 border-dashed border-line p-3 text-center text-sm text-muted">
+            Emplacement 1
+        </div>
+
+        <div class="flex min-h-20 items-center justify-center rounded-xl border-2 border-dashed border-line p-3 text-center text-sm text-muted">
+            Emplacement 2
+        </div>
+
+        <div class="flex min-h-20 items-center justify-center rounded-xl border-2 border-dashed border-line p-3 text-center text-sm text-muted">
+            Emplacement 3
+        </div>
+
+        <div class="flex min-h-20 items-center justify-center rounded-xl border-2 border-dashed border-line p-3 text-center text-sm text-muted">
+            Emplacement 4
+        </div>
+
+        <div class="flex min-h-20 items-center justify-center rounded-xl border-2 border-dashed border-line p-3 text-center text-sm text-muted">
+            Emplacement 5
+        </div>
+
+        <div class="flex min-h-20 items-center justify-center rounded-xl border-2 border-dashed border-line p-3 text-center text-sm text-muted">
+            Emplacement 6
+        </div>
+
+    </div>
+
+     <p id="team-message" role="status" aria-live="polite"
+    class="mt-4 text-sm text-muted">
+  <!-- text affiche -->
+  </p>
+
+</section>
 
       </aside>
     </div>
 
     <!-- ===================== FORMULAIRE DE CRÉATION ===================== -->
-    <section id="create" aria-label="Nouvelle créature" class="flex flex-col gap-6 rounded-card bg-white p-8">
+    <section id="create" aria-label="Nouvelle créature" class="flex flex-col gap-6 rounded-card bg-white p-8 ">
       <div>
         <h2 class="font-display text-3xl font-extrabold">Nouvelle créature</h2>
         <p class="text-muted">Chaque champ est vérifié avant l'ajout de la créature.</p>
       </div>
-      <form id="creature-form" novalidate class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <form id="creature-form" novalidate class="grid grid-cols-1 gap-5 ">
         <label class="flex flex-col gap-1 text-sm font-bold">Numéro
           <input name="id" type="text" placeholder="#010" class="field font-normal">
           <span class="error-message text-sm font-normal text-muted"></span>
@@ -231,7 +277,13 @@
   </main>
 
   <footer class="mx-auto max-w-7xl px-8 pb-10 text-sm text-muted">
-    Images : [source des images de votre univers]. Projet de fans réalisé dans le cadre d'une formation.
+   Images : <a
+  href="https://github.com/PokeAPI/sprites"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="underline focus-visible:outline"
+>Pokémon sprites — PokeAPI</a>.
+Projet de fans réalisé dans le cadre d'une formation.
   </footer>
 
   <!-- data.js (à créer) doit être chargé AVANT script.js -->
