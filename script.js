@@ -132,5 +132,18 @@ while (i < creatures.length) {
 }
    
   
+const detailImage = document.getElementById("detail-image");
+const detailName = document.getElementById("detail-name");
+const detailType = document.getElementById("detail-type");
+const detailDescription = document.getElementById("detail-description");
+
+const detailHp = document.getElementById("detail-hp");
+const detailAttack = document.getElementById("detail-attack");
+const detailDefence = document.getElementById("detail-defence");
+
+const detailHpBar = document.getElementById("detail-hp-bar");
+const detailAttackBar = document.getElementById("detail-attack-bar");
+const detailDefenceBar = document.getElementById("detail-defence-bar");
+
 
 
