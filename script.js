@@ -75,7 +75,10 @@ while (i < creatures.length) {
         creature.stats.defence;
 
     cards += `
-        <article class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4">
+    
+         <article
+         data-creature-id="${creature.id}"
+         class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4 cursor-pointer">
 
             <div class="relative flex h-36 items-center justify-center rounded-xl bg-brand-light">
                 <img
