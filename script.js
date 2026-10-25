@@ -117,3 +117,78 @@ while (i < creatures.length) {
 }
 
 grid.innerHTML = cards;
+// Get the details panel elements
+const detailImage = document.getElementById("detail-image");
+const detailName = document.getElementById("detail-name");
+const detailType = document.getElementById("detail-type");
+const detailDescription = document.getElementById("detail-description");
+
+const detailHp = document.getElementById("detail-hp");
+const detailAttack = document.getElementById("detail-attack");
+const detailDefence = document.getElementById("detail-defence");
+
+const detailHpBar = document.getElementById("detail-hp-bar");
+const detailAttackBar = document.getElementById("detail-attack-bar");
+const detailDefenceBar = document.getElementById("detail-defence-bar");
+
+// Listen for clicks inside the grid
+grid.addEventListener("click", function(event) {
+
+    // Find the card that was clicked
+    const card = event.target.closest("article");
+
+    // If the click was not inside a card, stop
+    if (card === null) {
+        return;
+    }
+
+    // Get the creature ID from the card
+    const creatureId = card.dataset.creatureId;
+
+    // Find the creature in the array
+    let selectedCreature = null;
+    let j = 0;
+
+    while (j < creatures.length) {
+        if (creatures[j].id === creatureId) {
+            selectedCreature = creatures[j];
+            break;
+        }
+
+        j++;
+    }
+
+    // Stop if the creature was not found
+    if (selectedCreature === null) {
+        return;
+    }
+
+        // Stop if the creature was not found
+    if (selectedCreature === null) {
+        return;
+    }
+
+    // Update the image and text
+    detailImage.src = selectedCreature.image;
+    detailImage.alt = selectedCreature.name;
+
+    detailName.textContent = selectedCreature.name;
+    detailType.textContent = selectedCreature.type;
+    detailDescription.textContent = selectedCreature.description;
+
+    // Update the stat numbers
+    detailHp.textContent = selectedCreature.stats.hp;
+    detailAttack.textContent = selectedCreature.stats.attack;
+    detailDefence.textContent = selectedCreature.stats.defence;
+
+    // Update the stat bars
+    detailHpBar.style.width =
+        Math.min(selectedCreature.stats.hp, 200) / 200 * 100 + "%";
+
+    detailAttackBar.style.width =
+        Math.min(selectedCreature.stats.attack, 200) / 200 * 100 + "%";
+
+    detailDefenceBar.style.width =
+        Math.min(selectedCreature.stats.defence, 200) / 200 * 100 + "%";
+
+});
