@@ -60,90 +60,57 @@
 // -------------------------------------------------------------
 // BONUS : LocalStorage, Fetch API, tri, comparaison
 // -------------------------------------------------------------
-
+import { creatures } from "./data.js";
 const grid = document.getElementById("grid");
 
 let i = 0;
+let cards = "";
 
 while (i < creatures.length) {
     const creature = creatures[i];
 
-    // Create the card
-    const card = document.createElement("article");
-    card.className = "flex flex-col gap-3 rounded-card bg-white p-3 pb-4";
+    const total =
+        creature.stats.hp +
+        creature.stats.attack +
+        creature.stats.defence;
 
-    // Picture area
-    const pictureBox = document.createElement("div");
-    pictureBox.className = "relative flex h-36 items-center justify-center rounded-xl bg-brand-light";
+    cards += `
+        <article class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4">
 
-    const image = document.createElement("img");
-    image.src = creature.image;
-    image.alt = creature.name;
-    image.className = "h-28 w-28 object-contain";
+            <div class="relative flex h-36 items-center justify-center rounded-xl bg-brand-light">
+                <img
+                    src="${creature.image}"
+                    alt="${creature.name}"
+                    class="h-28 w-28 object-contain"
+                >
 
-    const id = document.createElement("span");
-    id.textContent = creature.id;
-    id.className = "absolute left-3 top-2 font-mono text-sm text-muted";
+                <span class="absolute left-3 top-2 font-mono text-sm text-muted">
+                    ${creature.id}
+                </span>
+            </div>
 
-    pictureBox.appendChild(image);
-    pictureBox.appendChild(id);
+            <div class="flex items-center justify-between gap-2">
+                <h3 class="font-display text-xl font-semibold">
+                    ${creature.name}
+                </h3>
 
-    // Name and type
-    const info = document.createElement("div");
-    info.className = "flex items-center justify-between gap-2";
+                <span class="rounded-full bg-brand-light px-3 py-1 text-sm font-bold text-ink">
+                    ${creature.type}
+                </span>
+            </div>
 
-    const name = document.createElement("h3");
-    name.textContent = creature.name;
-    name.className = "font-display text-xl font-semibold";
+            <p class="text-sm text-muted">
+                Niveau ${creature.level} · Total ${total}
+            </p>
 
-    const type = document.createElement("span");
-    type.textContent = creature.type;
-    type.className = "rounded-full bg-brand-light px-3 py-1 text-sm font-bold text-ink";
+            <button type="button" class="btn-outline">
+                Ajouter à l'équipe
+            </button>
 
-    info.appendChild(name);
-    info.appendChild(type);
-
-    // Level and total
-    const level = document.createElement("p");
-
-    const total = creature.stats.hp +
-                  creature.stats.attack +
-                  creature.stats.defence;
-
-    level.textContent = "Niveau " + creature.level + " · Total " + total;
-    level.className = "text-sm text-muted";
-
-    // Add to team button
-    const button = document.createElement("button");
-    button.textContent = "Ajouter à l'équipe";
-    button.type = "button";
-    button.className = "btn-outline";
-
-    // Put everything inside the card
-    card.appendChild(pictureBox);
-    card.appendChild(info);
-    card.appendChild(level);
-    card.appendChild(button);
-
-    // Put the card inside the grid
-    grid.appendChild(card);
+        </article>
+    `;
 
     i++;
 }
-   
-  
-const detailImage = document.getElementById("detail-image");
-const detailName = document.getElementById("detail-name");
-const detailType = document.getElementById("detail-type");
-const detailDescription = document.getElementById("detail-description");
 
-const detailHp = document.getElementById("detail-hp");
-const detailAttack = document.getElementById("detail-attack");
-const detailDefence = document.getElementById("detail-defence");
-
-const detailHpBar = document.getElementById("detail-hp-bar");
-const detailAttackBar = document.getElementById("detail-attack-bar");
-const detailDefenceBar = document.getElementById("detail-defence-bar");
-
-
-
+grid.innerHTML = cards;
