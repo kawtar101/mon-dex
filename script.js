@@ -119,30 +119,47 @@ function displayCreatures(list) {
 
     grid.innerHTML = cards;
 }
+// Search and type filter
 
-// Display all creatures when the page opens
-displayCreatures(creatures);
 
-// Search as the user types
-searchInput.addEventListener("input", function() {
-    const searchText = searchInput.value.toLowerCase();
-
-    let results = [];
+function filterCreatures() {
     let i = 0;
+    let results = [];
 
     while (i < creatures.length) {
-        if (creatures[i].name.toLowerCase().includes(searchText)) {
-            results.push(creatures[i]);
+        const creature = creatures[i];
+
+        if (
+            creature.name.toLowerCase().includes(searchInput.value.toLowerCase()) &&
+            (selectedType === "Tous" || creature.type === selectedType)
+        ) {
+            results.push(creature);
         }
 
         i++;
     }
 
     displayCreatures(results);
+}
+
+// Search while typing
+searchInput.addEventListener("input", filterCreatures);
+
+// Type filters
+const filters = document.getElementById("filters");
+
+filters.addEventListener("click", function(event) {
+    if (event.target.tagName === "BUTTON") {
+        selectedType = event.target.dataset.type;
+        filterCreatures();
+    }
 });
 
+// Display all creatures when the page opens
+displayCreatures(creatures);
 
-grid.innerHTML = cards;
+
+
 // Get the details panel elements
 const detailImage = document.getElementById("detail-image");
 const detailName = document.getElementById("detail-name");
@@ -189,11 +206,6 @@ grid.addEventListener("click", function(event) {
         return;
     }
 
-        // Stop if the creature was not found
-    if (selectedCreature === null) {
-        return;
-    }
-
     // Update the image and text
     detailImage.src = selectedCreature.image;
     detailImage.alt = selectedCreature.name;
@@ -217,4 +229,18 @@ grid.addEventListener("click", function(event) {
     detailDefenceBar.style.width =
         Math.min(selectedCreature.stats.defence, 200) / 200 * 100 + "%";
 
+});
+// Get the creation form
+const creatureForm = document.getElementById("creature-form");
+const idRegex = /^#\d{3}$/;
+const idInput = creatureForm.elements["id"];
+
+idInput.addEventListener("blur", function() {
+    const errorMessage = idInput.parentElement.querySelector(".error-message");
+
+    if (idRegex.test(idInput.value)) {
+        errorMessage.textContent = "";
+    } else {
+        errorMessage.textContent = "Le numéro doit respecter le format #001.";
+    }
 });
