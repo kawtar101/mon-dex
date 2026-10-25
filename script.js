@@ -63,58 +63,84 @@
 import { creatures } from "./data.js";
 const grid = document.getElementById("grid");
 
-let i = 0;
-let cards = "";
 
-while (i < creatures.length) {
-    const creature = creatures[i];
+const searchInput = document.getElementById("search-input");
+let selectedType = "Tous";
+// Display creatures in the grid
+function displayCreatures(list) {
+    let i = 0;
+    let cards = "";
 
-    const total =
-        creature.stats.hp +
-        creature.stats.attack +
-        creature.stats.defence;
+    while (i < list.length) {
+        const creature = list[i];
 
-    cards += `
-    
-         <article
-         data-creature-id="${creature.id}"
-         class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4 cursor-pointer">
+        const total =
+            creature.stats.hp +
+            creature.stats.attack +
+            creature.stats.defence;
 
-            <div class="relative flex h-36 items-center justify-center rounded-xl bg-brand-light">
-                <img
-                    src="${creature.image}"
-                    alt="${creature.name}"
-                    class="h-28 w-28 object-contain"
-                >
+        cards += `
+            <article
+                data-creature-id="${creature.id}"
+                class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4 cursor-pointer">
 
-                <span class="absolute left-3 top-2 font-mono text-sm text-muted">
-                    ${creature.id}
-                </span>
-            </div>
+                <div class="relative flex h-36 items-center justify-center rounded-xl bg-brand-light">
+                    <img src="${creature.image}"
+                         alt="${creature.name}"
+                         class="h-28 w-28 object-contain">
 
-            <div class="flex items-center justify-between gap-2">
-                <h3 class="font-display text-xl font-semibold">
-                    ${creature.name}
-                </h3>
+                    <span class="absolute left-3 top-2 font-mono text-sm text-muted">
+                        ${creature.id}
+                    </span>
+                </div>
 
-                <span class="rounded-full bg-brand-light px-3 py-1 text-sm font-bold text-ink">
-                    ${creature.type}
-                </span>
-            </div>
+                <div class="flex items-center justify-between gap-2">
+                    <h3 class="font-display text-xl font-semibold">
+                        ${creature.name}
+                    </h3>
 
-            <p class="text-sm text-muted">
-                Niveau ${creature.level} · Total ${total}
-            </p>
+                    <span class="rounded-full bg-brand-light px-3 py-1 text-sm font-bold text-ink">
+                        ${creature.type}
+                    </span>
+                </div>
 
-            <button type="button" class="btn-outline">
-                Ajouter à l'équipe
-            </button>
+                <p class="text-sm text-muted">
+                    Niveau ${creature.level} · Total ${total}
+                </p>
 
-        </article>
-    `;
+                <button type="button" class="btn-outline">
+                    Ajouter à l'équipe
+                </button>
+            </article>
+        `;
 
-    i++;
+        i++;
+    }
+
+    grid.innerHTML = cards;
 }
+
+// Display all creatures when the page opens
+displayCreatures(creatures);
+
+// Search as the user types
+searchInput.addEventListener("input", function() {
+    const searchText = searchInput.value.toLowerCase();
+
+    let results = [];
+    let i = 0;
+
+    while (i < creatures.length) {
+        if (creatures[i].name.toLowerCase().includes(searchText)) {
+            results.push(creatures[i]);
+        }
+
+        i++;
+    }
+
+    displayCreatures(results);
+});
+
 
 grid.innerHTML = cards;
 // Get the details panel elements
