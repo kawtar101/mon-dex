@@ -49,31 +49,26 @@
 // écouteur sur la grille et UN SEUL sur l'équipe (délégation).
 // -------------------------------------------------------------
 
-
 // -------------------------------------------------------------
 // 7. RÈGLES DE L'ÉQUIPE
 // 6 créatures au maximum, pas de doublon, un message clair quand
 // une action est refusée, et un compteur (x/6).
 // -------------------------------------------------------------
 
-
 // -------------------------------------------------------------
 // BONUS : LocalStorage, Fetch API, tri, comparaison
 // -------------------------------------------------------------
 import { creatures } from "./data.js";
 const grid = document.getElementById("grid");
-
-
 const searchInput = document.getElementById("search-input");
-let selectedType = "Tous";
+let selectedType = "Tous";//this
 // Display creatures in the grid
 function displayCreatures(list) {
     let i = 0;
     let cards = "";
 
-    while (i < list.length) {
+    while (i < list.length) {//this
         const creature = list[i];
-
         const total =
             creature.stats.hp +
             creature.stats.attack +
@@ -120,35 +115,30 @@ function displayCreatures(list) {
     grid.innerHTML = cards;
 }
 // Search and type filter
-
-
 function filterCreatures() {
     let i = 0;
+    //empty array for storing pokemon that match the search
     let results = [];
-
+    // checking every creature
     while (i < creatures.length) {
         const creature = creatures[i];
-
         if (
-            creature.name.toLowerCase().includes(searchInput.value.toLowerCase()) &&
+            creature.name.toLowerCase().includes(searchInput.value.toLowerCase()) &&//this
             (selectedType === "Tous" || creature.type === selectedType)
         ) {
             results.push(creature);
         }
-
         i++;
     }
-
     displayCreatures(results);
 }
-
 // Search while typing
 searchInput.addEventListener("input", filterCreatures);
 
 // Type filters
-const filters = document.getElementById("filters");
+const filters = document.getElementById("filters");//this
 
-filters.addEventListener("click", function(event) {
+filters.addEventListener("click", function(event) {//this
     if (event.target.tagName === "BUTTON") {
         selectedType = event.target.dataset.type;
         filterCreatures();
@@ -161,6 +151,7 @@ displayCreatures(creatures);
 
 
 // Get the details panel elements
+//We select all these elements because we need to  update them when someone clicks a creature.
 const detailImage = document.getElementById("detail-image");
 const detailName = document.getElementById("detail-name");
 const detailType = document.getElementById("detail-type");
@@ -207,7 +198,7 @@ grid.addEventListener("click", function(event) {
     }
 
     // Update the image and text
-    detailImage.src = selectedCreature.image;
+    detailImage.src = selectedCreature.image;    // this
     detailImage.alt = selectedCreature.name;
 
     detailName.textContent = selectedCreature.name;
@@ -231,11 +222,16 @@ grid.addEventListener("click", function(event) {
 
 });
 // Get the creation form
-const creatureForm = document.getElementById("creature-form");
+const creatureForm = document.getElementById("creature-form");    //this
 const idRegex = /^#\d{3}$/;
+const nameRegex = /^[A-Za-zÀ-ÿ ]{2,30}$/;
 const idInput = creatureForm.elements["id"];
+const nameInput = creatureForm.elements["name"];
+const typeInput = creatureForm.elements["type"];
 
-idInput.addEventListener("blur", function() {
+const typeRegex = /^(Feu|Eau|Plante|Électrik|Glace|Ténèbres)$/;
+
+idInput.addEventListener("blur", function() {      // this
     const errorMessage = idInput.parentElement.querySelector(".error-message");
 
     if (idRegex.test(idInput.value)) {
@@ -243,4 +239,15 @@ idInput.addEventListener("blur", function() {
     } else {
         errorMessage.textContent = "Le numéro doit respecter le format #001.";
     }
+
+});
+nameInput.addEventListener("blur", function() {                             // this
+    const errorMessage = nameInput.parentElement.querySelector(".error-message");
+
+    if (nameRegex.test(nameInput.value.trim())) {
+        errorMessage.textContent = "";
+    } else {
+        errorMessage.textContent = "Le nom doit contenir entre 2 et 30 lettres.";
+    }
+
 });
