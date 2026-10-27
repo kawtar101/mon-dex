@@ -1,44 +1,89 @@
-# Mon Dex — dépôt de départ
+# Mon Dex — Encyclopédie interactive Pokémon
 
-Sprint 2 — Brief 1. Une page Tailwind **statique** à rendre interactive avec JavaScript, pour l'univers de votre choix : Pokémon, Digimon ou Yu-Gi-Oh!.
+## Univers choisi
 
-Lisez le brief complet avant de commencer.
+**Pokémon** : des créatures avec des types, des stades d'évolution et des statistiques (PV, Attaque, Défense).
 
-## Installation
+## Démo en ligne
 
-Prérequis : [Node.js](https://nodejs.org) (version 18 ou plus).
+🔗 [Voir le Dex sur GitHub Pages](https://[ton-pseudo].github.io/[nom-du-repo]/)
+
+## Description
+
+Projet réalisé dans le cadre de la formation Développeur web et web mobile (Sprint 2 — Brief 1).
+Une page Tailwind statique a été transformée en encyclopédie interactive, utilisable sur ordinateur et sur téléphone.
+
+## Fonctionnalités
+
+- **Affichage** : la grille de cartes est générée en JavaScript à partir du tableau `creatures` (`data.js`).
+- **Détail** : un clic sur une carte affiche l'image, la description et les statistiques en barres.
+- **Recherche** : la liste se met à jour pendant la saisie, sans tenir compte des majuscules.
+- **Filtre par type** : les boutons filtrent la grille, « Tous » réinitialise. La recherche et le filtre fonctionnent ensemble.
+- **Créer une créature** : formulaire validé par expressions régulières, avec message d'erreur sous chaque champ.
+- **Mon équipe** : boutons « Ajouter à l'équipe » et « Retirer », gérés par délégation d'événements.
+- **Règles de l'équipe** : 6 créatures maximum, pas de doublon, messages clairs et compteur (x/6).
+
+## Technologies
+
+- HTML5
+- Tailwind CSS
+- JavaScript (modules ES6)
+
+## Lancer le projet en local
 
 ```bash
+# 1. Cloner le dépôt
+git clone https://github.com/[ton-pseudo]/[nom-du-repo].git
+cd [nom-du-repo]
+
+# 2. Installer les dépendances
 npm install
-npm run dev
+
+# 3. Générer le CSS Tailwind
+npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch
 ```
 
-`npm run dev` surveille vos fichiers et régénère `dist/output.css` à chaque modification. Ouvrez ensuite `index.html` dans votre navigateur (ou avec l'extension Live Server).
+Ouvre ensuite `index.html` avec **Live Server** (VS Code). Un double-clic sur le fichier ne fonctionne pas, car le projet utilise `import` (modules JavaScript).
 
-Avant de mettre en ligne sur GitHub Pages :
+## Structure du projet
 
-```bash
-npm run build
+```
+.
+├── index.html
+├── script.js
+├── data.js
+├── tailwind.config.js
+├── src/
+│   └── input.css
+├── dist/
+│   └── output.css
+└── README.md
 ```
 
-Puis committez `dist/output.css` : GitHub Pages ne lance pas Tailwind pour vous.
+## Sources des images
 
-## Contenu du dépôt
+Les images des Pokémon viennent de la base de données publique :
+[PokeAPI Sprites](https://github.com/PokeAPI/sprites)
 
-| Fichier | Rôle |
-| --- | --- |
-| `index.html` | La page Dex, statique, avec 6 cartes écrites à la main |
-| `tailwind.config.js` | Le thème neutre à remplacer par celui de votre univers |
-| `src/input.css` | Les directives Tailwind et quelques classes de composants |
-| `dist/output.css` | Le CSS généré par Tailwind (ne pas modifier à la main) |
-| `data.js` | Le tableau `creatures`, à remplir avec au moins 12 créatures |
-| `script.js` | Votre JavaScript, avec la liste des fonctionnalités à coder |
-| `design/` | La maquette de la version finale |
+## Validation du formulaire : tests des expressions régulières
 
-## À compléter par vous
+Chaque champ est vérifié avec une expression régulière. Le message s'affiche sous le champ quand l'utilisateur le quitte, et le formulaire n'est pas envoyé tant qu'un champ est invalide.
 
-- **Univers choisi :** [Pokémon / Digimon / Yu-Gi-Oh!]
-- **Lien GitHub Pages :** [lien]
-- **Sources des images :** [liens]
-- **Tests des expressions régulières :** [collez ici vos tests console : 2 valeurs valides et 2 invalides par expression]
-- **Bonus réalisés :** [liste]
+| Champ | Expression régulière | Exemples valides | Exemples invalides |
+| --- | --- | --- | --- |
+| Numéro | `/^#\d{3}$/` | `#001`, `#150` | `001`, `#12` |
+| Nom | `/^[A-Za-zÀ-ÿ '-]{2,30}$/` | `Pikachu`, `Mime Jr` | `A`, `Pika123` |
+| Type | `/^(Feu\|Eau\|Plante\|Électrik\|Glace\|Ténèbres\|Fée)$/` | `Feu`, `Fée` | `Roche`, `feu` |
+| Niveau | `/^[A-Za-zÀ-ÿ0-9 ]{2,30}$/` | `Base`, `Niveau 1` | `A`, `Base!` |
+| Statistique | `/^\d{1,3}$/` | `45`, `999` | `1000`, `abc` |
+| Image | `/^https:\/\/\S+$/` | `https://site.com/a.png` | `http://site.com/a.png`, `image.png` |
+| Description | `/^[\s\S]{10,200}$/` | `Une courte description.` | `Trop court` (moins de 10 caractères) |
+
+## Gestion de projet
+
+- Dépôt GitHub avec des commits réguliers et des messages clairs.
+- Tableau GitHub Projects : [lien vers ton tableau](https://github.com/users/[ton-pseudo]/projects/[numero])
+
+## Auteur
+
+**[Kawtar Asrarfi]** — Formation Développeur web et web mobile.
