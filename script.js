@@ -61,57 +61,44 @@
 import { creatures } from "./data.js";
 const grid = document.getElementById("grid");
 const searchInput = document.getElementById("search-input");
-let selectedType = "Tous";//this
-// Display creatures in the grid
+let selectedType = "Tous";
 function displayCreatures(list) {
     let i = 0;
     let cards = "";
-
-    while (i < list.length) {//this
+    while (i < list.length) {
         const creature = list[i];
         const total =
             creature.stats.hp +
             creature.stats.attack +
             creature.stats.defence;
-
-        cards += `
-            <article
-                data-creature-id="${creature.id}"
-                class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4 cursor-pointer">
-
-                <div class="relative flex h-36 items-center justify-center rounded-xl bg-brand-light">
-                    <img src="${creature.image}"
-                         alt="${creature.name}"
-                         class="h-28 w-28 object-contain">
-
-                    <span class="absolute left-3 top-2 font-mono text-sm text-muted">
-                        ${creature.id}
-                    </span>
-                </div>
-
-                <div class="flex items-center justify-between gap-2">
-                    <h3 class="font-display text-xl font-semibold">
-                        ${creature.name}
-                    </h3>
-
-                    <span class="rounded-full bg-brand-light px-3 py-1 text-sm font-bold text-ink">
-                        ${creature.type}
-                    </span>
-                </div>
-
-                <p class="text-sm text-muted">
-                    Niveau ${creature.level} · Total ${total}
-                </p>
-
-                <button type="button" data-action="add" class="btn-outline">
-                    Ajouter à l'équipe
-                </button>
-            </article>
-        `;
-
+ cards += `
+        <article
+  data-creature-id="${creature.id}"
+     class="flex flex-col gap-3 rounded-card bg-white p-3 pb-4 cursor-pointer">
+     <div class="relative flex h-36 items-center justify-center rounded-xl bg-brand-light">
+     <img src="${creature.image}"   alt="${creature.name}"
+         class="h-28 w-28 object-contain">
+            <span class="absolute left-3 top-2 font-mono text-sm text-muted">
+     ${creature.id}
+      </span>
+      </div>
+       <div class="flex items-center justify-between gap-2">
+     <h3 class="font-display text-xl font-semibold">
+      ${creature.name}
+       </h3>
+        <span class="rounded-full bg-brand-light px-3 py-1 text-sm font-bold text-ink">
+         ${creature.type}
+       </span>
+     </div>
+     <p class="text-sm text-muted">
+      Niveau ${creature.level} · Total ${total}
+     </p>
+   <button type="button" data-action="add" class="btn-outline">
+     Ajouter à l'équipe
+          </button>
+    </article>       `;
         i++;
     }
-
     grid.innerHTML = cards;
 }
 // Search and type filter
@@ -123,7 +110,7 @@ function filterCreatures() {
     while (i < creatures.length) {
         const creature = creatures[i];
         if (
-            creature.name.toLowerCase().includes(searchInput.value.toLowerCase()) &&//this
+            creature.name.toLowerCase().includes(searchInput.value.toLowerCase()) &&
             (selectedType === "Tous" || creature.type === selectedType)
         ) {
             results.push(creature);
@@ -148,29 +135,26 @@ filters.addEventListener("click", function(event) {//this
 // Display all creatures when the page opens
 displayCreatures(creatures);
 
-
-
 // Get the details panel elements
 //We select all these elements because we need to  update them when someone clicks a creature.
-const detailImage = document.getElementById("detail-image");
-const detailName = document.getElementById("detail-name");
+        const detailImage = document.getElementById("detail-image");
+    const detailName = document.getElementById("detail-name");
 const detailType = document.getElementById("detail-type");
-const detailDescription = document.getElementById("detail-description");
+        const detailDescription = document.getElementById("detail-description");
 
-const detailHp = document.getElementById("detail-hp");
-const detailAttack = document.getElementById("detail-attack");
-const detailDefence = document.getElementById("detail-defence");
+        const detailHp = document.getElementById("detail-hp");
+    const detailAttack = document.getElementById("detail-attack");
+        const detailDefence = document.getElementById("detail-defence");
 
-const detailHpBar = document.getElementById("detail-hp-bar");
-const detailAttackBar = document.getElementById("detail-attack-bar");
+    const detailHpBar = document.getElementById("detail-hp-bar");
+    const detailAttackBar = document.getElementById("detail-attack-bar");
 const detailDefenceBar = document.getElementById("detail-defence-bar");
 
 // Éléments de l'équipe
-const teamSlots = document.getElementById("team-slots");
-const teamMessage = document.getElementById("team-message");
+        const teamSlots = document.getElementById("team-slots");
+    const teamMessage = document.getElementById("team-message");
 const teamCount = document.getElementById("team-count");
-const teamCountSection = document.getElementById("team-count-section");
-
+        const teamCountSection = document.getElementById("team-count-section");
 // Tableau des créatures de l'équipe (6 maximum)
 let team = [];
 
@@ -185,7 +169,6 @@ function findCreature(id) {
     }
     return null;
 }
-
 // Listen for clicks inside the grid
 // (UN SEUL écouteur : détail + bouton "Ajouter à l'équipe")
 grid.addEventListener("click", function(event) {
@@ -209,14 +192,14 @@ grid.addEventListener("click", function(event) {
         return;
     }
 
-    // Si on a cliqué sur le bouton "Ajouter à l'équipe" : on ajoute et on s'arrête
+    //  "Ajouter à l'équipe" we ajout and then w stop
     if (event.target.closest("button") !== null) {
         addToTeam(selectedCreature);
         return;
     }
 
     // Update the image and text
-    detailImage.src = selectedCreature.image;    // this
+    detailImage.src = selectedCreature.image;    
     detailImage.alt = selectedCreature.name;
 
     detailName.textContent = selectedCreature.name;
